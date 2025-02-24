@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using Timer = System.Windows.Forms.Timer;
 
 namespace LXLauncher
 {
@@ -22,9 +23,12 @@ namespace LXLauncher
     public sealed partial class LxLauncher : Form
     {
         private const string ApiUrl = "https://lightning-x-api.vercel.app/api/counter";
-        private const string ChangeLogUrl = "https://99anvar99.github.io/Changelog";
-        private const string LxWebsiteUrl = "https://lightning-x.vercel.app/";
-        private const string currentLxLauncherVersion = @"4.0.1";
+        private const string ChangeLogUrl = "https://lightning-x.github.io/Changelog/";
+        private const string LxWebsiteUrl = "https://lightningx.online";
+        private const string DownloadFilesUrl = "https://codeload.github.com/Lightning-X/Files/zip/refs/heads/main";
+        private const string LxLauncherUrl = "https://github.com/Lightning-X/Files/releases/download/Launcher/LXLauncher.exe";
+        private const string DiscordUrl = "https://discord.gg/89KahkDkY9";
+        private const string currentLxLauncherVersion = @"5.0";
         private const string LXLauncher = @"LXLauncher v" + currentLxLauncherVersion;
 
         // P/Invoke constants
@@ -42,27 +46,51 @@ namespace LXLauncher
 
         private readonly string _lxDir;
 
-        private readonly string[] _websites =
-            { ApiUrl, LxWebsiteUrl, ChangeLogUrl };
+        private readonly string[] _websites = { ApiUrl, LxWebsiteUrl, ChangeLogUrl };
+
+        private static int Lerp(int a, int b, float t) => (int)(a + (b - a) * t);
+        private readonly Timer animationTimer;
+        private int targetY; // Target Y position
+        private float t; // Interpolation factor
 
         public LxLauncher()
         {
+            smooth_form_loading_animation();
             InitializeComponent();
 
             _lxDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lightning X");
-            var headerPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                Path.Combine(_lxDir, "Headers"));
+            var headerPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.Combine(_lxDir, "Headers"));
             if (!Directory.Exists(_lxDir)) Directory.CreateDirectory(_lxDir);
             if (!Directory.Exists(headerPath)) Directory.CreateDirectory(headerPath);
             lx_launcher_version_label.Text = currentLxLauncherVersion;
-
-            IncrementUserCount();
 
             SetPanelColorGradient(Menu_Panel, Color.FromArgb(77, 178, 255), Color.FromArgb(12, 55, 135));
             SetPanelColorGradient(Launcher_Panel, Color.FromArgb(255, 89, 89), Color.FromArgb(135, 0, 0));
             SetPanelColorGradient(Website_Panel, Color.FromArgb(219, 171, 88), Color.FromArgb(133, 84, 0));
             SetPanelColorGradient(Files_Panel, Color.FromArgb(147, 0, 222), Color.FromArgb(76, 41, 94));
+
+            IncrementUserCount();
+
+            // Apply rounded corners to the form
+            ApplyRoundedCorners();
+
+            home_panel.Visible = true;
+            changelog_panel.Visible = false;
+
+            // Initialize the timer
+            animationTimer = new Timer();
+            animationTimer.Interval = 16; // ~60 FPS
+            animationTimer.Tick += AnimationTimer_Tick;
         }
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr OpenProcess(uint dwDesiredAccess, int bInheritHandle, uint dwProcessId);
@@ -71,14 +99,26 @@ namespace LXLauncher
         private static extern int CloseHandle(IntPtr hObject);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        [DllImport("dwmapi.dll", SetLastError = true)]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, uint dwAttribute, int[] pvAttribute,
-            uint cbAttribute);
+        private void ApplyRoundedCorners()
+        {
+            var region = CreateRoundRectRgn(0, 0, Width, Height, 20, 20);
+            SetWindowRgn(Handle, region, true);
+
+            // Apply rounded corners to the panels
+            var panelRegion = CreateRoundRectRgn(0, 0, Menu_Panel.Width, Menu_Panel.Height, 20, 20);
+            SetWindowRgn(Menu_Panel.Handle, panelRegion, true);
+
+            panelRegion = CreateRoundRectRgn(0, 0, Launcher_Panel.Width, Launcher_Panel.Height, 20, 20);
+            SetWindowRgn(Launcher_Panel.Handle, panelRegion, true);
+
+            panelRegion = CreateRoundRectRgn(0, 0, Website_Panel.Width, Website_Panel.Height, 20, 20);
+            SetWindowRgn(Website_Panel.Handle, panelRegion, true);
+
+            panelRegion = CreateRoundRectRgn(0, 0, Files_Panel.Width, Files_Panel.Height, 20, 20);
+            SetWindowRgn(Files_Panel.Handle, panelRegion, true);
+        }
 
         // Helper function to set panel color gradient
         private static void SetPanelColorGradient(Panel panel, Color color1, Color color2)
@@ -99,6 +139,67 @@ namespace LXLauncher
                 m.Result = (IntPtr)Htcaption; // Allow moving the window by clicking and dragging the client area
         }
 
+        // Smooth Form Opening Animation
+        private void smooth_form_loading_animation()
+        {
+            Opacity = 0;
+            var timer = new Timer { Interval = 10 };
+            timer.Tick += (s, ev) =>
+            {
+                if (Opacity >= 1)
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    return;
+                }
+
+                Opacity += 0.05;
+            };
+            timer.Start();
+        }
+
+        // Smooth Form Closing Animation
+        private void smooth_form_closing_animation()
+        {
+            var timer = new Timer { Interval = 10 };
+            timer.Tick += (s, ev) =>
+            {
+                if (Opacity <= 0)
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    Application.Exit();
+                    return;
+                }
+
+                Opacity -= 0.05;
+            };
+            timer.Start();
+        }
+
+        private void AnimationTimer_Tick(object sender, EventArgs e)
+        {
+            // Increment the interpolation factor
+            t += 0.03f; // Adjust this value to control the speed of the animation
+
+            // Clamp t to 1
+            if (t > 1f)
+            {
+                t = 1f;
+                animationTimer.Stop(); // Stop the timer when the animation is complete
+                animationTimer.Dispose();
+            }
+
+            // Calculate the new Y position using Lerp
+            var currentY = moving_panel.Location.Y;
+            var newY = Lerp(currentY, targetY, t);
+
+            // Update the panel's location
+            moving_panel.Location = new Point(moving_panel.Location.X, newY);
+        }
+
+        private static bool IsBattlEyeRunning() => Process.GetProcesses().Any(p => p.ProcessName.Equals("BEService", StringComparison.OrdinalIgnoreCase));
+
         private async void IncrementUserCount()
         {
             try
@@ -113,7 +214,7 @@ namespace LXLauncher
             }
             catch (HttpRequestException httpEx)
             {
-                MessageBox.Show($@"HTTP Error: {httpEx.Message}");
+                MessageBox.Show($@"HTTPS Error: {httpEx.Message}");
             }
             catch (Exception ex)
             {
@@ -146,7 +247,7 @@ namespace LXLauncher
             }
             catch (HttpRequestException httpEx)
             {
-                MessageBox.Show($@"HTTP Error: {httpEx.Message}");
+                MessageBox.Show($@"HTTPS Error: {httpEx.Message}");
             }
             catch (Exception ex)
             {
@@ -218,8 +319,7 @@ namespace LXLauncher
 
                 using (var wc = new WebClient())
                 {
-                    await wc.DownloadFileTaskAsync("https://codeload.github.com/Lightning-X/Files/zip/refs/heads/main",
-                        tempPath);
+                    await wc.DownloadFileTaskAsync(DownloadFilesUrl, tempPath);
                 }
 
                 download_progressbar.Value = 50;
@@ -280,8 +380,8 @@ namespace LXLauncher
                 var hasAcknowledgedWebsite = Read_Registry("has_acknowledged_website", "0");
                 if (hasAcknowledgedWebsite == "0")
                 {
-                    Process.Start(new ProcessStartInfo("https://lightning-x.vercel.app/#/acknowledgement")
-                        { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo(LxWebsiteUrl)
+                    { UseShellExecute = true });
                     Write_Registry("has_acknowledged_website", "1");
                 }
 
@@ -327,7 +427,7 @@ namespace LXLauncher
                     if (MessageBox.Show($"LXLauncher {latestLXLauncherVersion} is available. Would you like to download it?", LXLauncher, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         // Download the latest version of the launcher
-                        Process.Start("https://github.com/Lightning-X/Files/releases/download/Launcher/LXLauncher.exe");
+                        Process.Start(LxLauncherUrl);
                         // Close the current launcher
                         Exit_Label_Click(null, null);
                     }
@@ -339,7 +439,7 @@ namespace LXLauncher
                     !Directory.Exists(Path.Combine(_lxDir, "Fonts")))
                 {
                     _ = DownloadDllAsync();
-                    
+
                     if (currentMenuVersion != latestMenuVersion)
                         Write_Registry("version", latestMenuVersion);
                 }
@@ -381,8 +481,8 @@ namespace LXLauncher
         private void Exit_Label_Click(object sender, EventArgs e)
         {
             _ = DecrementUserCount();
-            Thread.Sleep(300);
-            Application.Exit();
+            Thread.Sleep(350);
+            smooth_form_closing_animation();
         }
 
         private void launch_button_Click(object sender, EventArgs e)
@@ -490,6 +590,12 @@ namespace LXLauncher
 
         private void Inject_Button_Click(object sender, EventArgs e)
         {
+            if (IsBattlEyeRunning())
+            {
+                ShowWarning("BattlEye is running! Please disable 'Battleye' before injecting.");
+                return;
+            }
+
             if (GetPid() == -1)
             {
                 ShowError(@"Failed to find GTA process. Make sure GTA is running.");
@@ -539,7 +645,7 @@ namespace LXLauncher
 
         #region Registry Methods
 
-        private string Read_Registry(string name, string value)
+        private static string Read_Registry(string name, string value)
         {
             const string subKeyPath = @"Software\LX";
             try
@@ -586,7 +692,7 @@ namespace LXLauncher
             MessageBox.Show(message, LXLauncher, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private static bool ShowInfo (string message, MessageBoxButtons buttons)
+        private static bool ShowInfo(string message, MessageBoxButtons buttons)
         {
             return MessageBox.Show(message, LXLauncher, buttons, MessageBoxIcon.Information) == DialogResult.Yes;
         }
@@ -599,6 +705,55 @@ namespace LXLauncher
         private static void ShowError(string message)
         {
             MessageBox.Show(message, LXLauncher, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void pictureBox17_Click(object sender, EventArgs e)
+        {
+            Process.Start(DiscordUrl);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Process.Start(LxWebsiteUrl);
+        }
+
+        private void home_button_MouseClick(object sender, MouseEventArgs e)
+        {
+            t = 0f; // Reset interpolation factor
+            targetY = 209;
+            animationTimer.Start(); // Start the animation
+
+            if (changelog_panel.Visible) { changelog_panel.Visible = false; }
+            if (!home_panel.Visible) { home_panel.Visible = true; }
+        }
+
+        private void changelog_button_MouseClick(object sender, MouseEventArgs e)
+        {
+            t = 0f; // Reset interpolation factor
+            targetY = 264;
+            animationTimer.Start(); // Start the animation
+            if (home_panel.Visible) { home_panel.Visible = false; }
+            if (!changelog_panel.Visible) { changelog_panel.Visible = true; }
+        }
+
+        private void lua_button_MouseClick(object sender, MouseEventArgs e)
+        {
+            t = 0f; // Reset interpolation factor
+            targetY = 319;
+            animationTimer.Start(); // Start the animation
+
+            if (home_panel.Visible) { home_panel.Visible = false; }
+            if (changelog_panel.Visible) { changelog_panel.Visible = false; }
+        }
+
+        private void vehicles_button_MouseClick(object sender, MouseEventArgs e)
+        {
+            t = 0f; // Reset interpolation factor
+            targetY = 374;
+            animationTimer.Start(); // Start the animation
+
+            if (home_panel.Visible) { home_panel.Visible = false; }
+            if (changelog_panel.Visible) { changelog_panel.Visible = false; }
         }
     }
 }

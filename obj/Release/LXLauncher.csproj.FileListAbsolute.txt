@@ -28,3 +28,13 @@ C:\Users\anvar\OneDrive\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.csproj.
 C:\Users\anvar\OneDrive\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.csproj.CoreCompileInputs.cache
 C:\Users\anvar\OneDrive\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.exe
 C:\Users\anvar\OneDrive\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.pdb
+C:\Users\anvar\Desktop\GitHub\LXLauncher\bin\Release\LXLauncher.exe.config
+C:\Users\anvar\Desktop\GitHub\LXLauncher\bin\Release\LXLauncher.exe
+C:\Users\anvar\Desktop\GitHub\LXLauncher\bin\Release\LXLauncher.pdb
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.csproj.AssemblyReference.cache
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.LxLauncher.resources
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.Properties.Resources.resources
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.csproj.GenerateResource.cache
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.csproj.CoreCompileInputs.cache
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.exe
+C:\Users\anvar\Desktop\GitHub\LXLauncher\obj\Release\LXLauncher.pdb
