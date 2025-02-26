@@ -33,7 +33,6 @@
             this.home_panel = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.download_progressbar = new System.Windows.Forms.ProgressBar();
             this.launch_button = new System.Windows.Forms.Button();
             this.game_launch_combo_box = new System.Windows.Forms.ComboBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -50,7 +49,10 @@
             this.lx_server_label = new System.Windows.Forms.Label();
             this.real_time_stats_4 = new System.Windows.Forms.Label();
             this.Website_Panel = new System.Windows.Forms.Panel();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.menu_status_label = new System.Windows.Forms.Label();
             this.menu_status = new System.Windows.Forms.Label();
@@ -73,6 +75,7 @@
             this.users_logo = new System.Windows.Forms.PictureBox();
             this.user_count_int = new System.Windows.Forms.Label();
             this.user_online = new System.Windows.Forms.Label();
+            this.download_progressbar = new System.Windows.Forms.ProgressBar();
             this.changelog_web_view = new System.Windows.Forms.WebBrowser();
             this.Exit_Label = new System.Windows.Forms.Label();
             this.user_count_timer = new System.Windows.Forms.Timer(this.components);
@@ -86,10 +89,9 @@
             this.moving_panel = new System.Windows.Forms.Panel();
             this.changelog_panel = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
             this.home_panel.SuspendLayout();
             this.panel7.SuspendLayout();
             this.Files_Panel.SuspendLayout();
@@ -98,6 +100,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
             this.Website_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.Launcher_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -111,9 +116,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.users_logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.changelog_panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
             this.SuspendLayout();
             // 
             // home_panel
@@ -159,15 +162,6 @@
             this.label3.Size = new System.Drawing.Size(141, 15);
             this.label3.TabIndex = 15;
             this.label3.Text = "Select Game Version";
-            // 
-            // download_progressbar
-            // 
-            this.download_progressbar.ForeColor = System.Drawing.Color.LawnGreen;
-            this.download_progressbar.Location = new System.Drawing.Point(25, 551);
-            this.download_progressbar.Name = "download_progressbar";
-            this.download_progressbar.Size = new System.Drawing.Size(210, 18);
-            this.download_progressbar.TabIndex = 14;
-            this.download_progressbar.Visible = false;
             // 
             // launch_button
             // 
@@ -359,6 +353,28 @@
             this.Website_Panel.Size = new System.Drawing.Size(230, 115);
             this.Website_Panel.TabIndex = 2;
             // 
+            // pictureBox10
+            // 
+            this.pictureBox10.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox10.Image = global::LXLauncher.Properties.Resources.real_time_stats;
+            this.pictureBox10.Location = new System.Drawing.Point(164, 88);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 13;
+            this.pictureBox10.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox11.Image = global::LXLauncher.Properties.Resources.real_time_stats;
+            this.pictureBox11.Location = new System.Drawing.Point(184, 88);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox11.TabIndex = 12;
+            this.pictureBox11.TabStop = false;
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -366,6 +382,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(249, 1);
             this.panel3.TabIndex = 10;
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox12.Image = global::LXLauncher.Properties.Resources.real_time_stats;
+            this.pictureBox12.Location = new System.Drawing.Point(205, 88);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox12.TabIndex = 11;
+            this.pictureBox12.TabStop = false;
             // 
             // pictureBox2
             // 
@@ -625,6 +652,15 @@
             this.user_online.TabIndex = 0;
             this.user_online.Text = "Users Online";
             // 
+            // download_progressbar
+            // 
+            this.download_progressbar.ForeColor = System.Drawing.Color.LawnGreen;
+            this.download_progressbar.Location = new System.Drawing.Point(25, 601);
+            this.download_progressbar.Name = "download_progressbar";
+            this.download_progressbar.Size = new System.Drawing.Size(210, 18);
+            this.download_progressbar.TabIndex = 14;
+            this.download_progressbar.Visible = false;
+            // 
             // changelog_web_view
             // 
             this.changelog_web_view.Location = new System.Drawing.Point(10, 20);
@@ -731,15 +767,14 @@
             this.lua_button.FlatAppearance.BorderSize = 0;
             this.lua_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lua_button.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lua_button.ForeColor = System.Drawing.Color.White;
-            this.lua_button.Location = new System.Drawing.Point(20, 319);
+            this.lua_button.ForeColor = System.Drawing.Color.Gray;
+            this.lua_button.Location = new System.Drawing.Point(20, 444);
             this.lua_button.Name = "lua_button";
             this.lua_button.Size = new System.Drawing.Size(215, 40);
             this.lua_button.TabIndex = 14;
             this.lua_button.Text = "Lua";
             this.lua_button.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lua_button.UseVisualStyleBackColor = false;
-            this.lua_button.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lua_button_MouseClick);
             // 
             // vehicles_button
             // 
@@ -747,15 +782,14 @@
             this.vehicles_button.FlatAppearance.BorderSize = 0;
             this.vehicles_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.vehicles_button.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.vehicles_button.ForeColor = System.Drawing.Color.White;
-            this.vehicles_button.Location = new System.Drawing.Point(20, 374);
+            this.vehicles_button.ForeColor = System.Drawing.Color.Gray;
+            this.vehicles_button.Location = new System.Drawing.Point(20, 499);
             this.vehicles_button.Name = "vehicles_button";
             this.vehicles_button.Size = new System.Drawing.Size(215, 40);
             this.vehicles_button.TabIndex = 15;
-            this.vehicles_button.Text = "Vehicles (.INI)";
+            this.vehicles_button.Text = "Vehicles";
             this.vehicles_button.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.vehicles_button.UseVisualStyleBackColor = false;
-            this.vehicles_button.MouseClick += new System.Windows.Forms.MouseEventHandler(this.vehicles_button_MouseClick);
             // 
             // moving_panel
             // 
@@ -782,39 +816,6 @@
             this.panel8.Size = new System.Drawing.Size(255, 3);
             this.panel8.TabIndex = 11;
             // 
-            // pictureBox10
-            // 
-            this.pictureBox10.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox10.Image = global::LXLauncher.Properties.Resources.real_time_stats;
-            this.pictureBox10.Location = new System.Drawing.Point(164, 88);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 13;
-            this.pictureBox10.TabStop = false;
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox11.Image = global::LXLauncher.Properties.Resources.real_time_stats;
-            this.pictureBox11.Location = new System.Drawing.Point(184, 88);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox11.TabIndex = 12;
-            this.pictureBox11.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox12.Image = global::LXLauncher.Properties.Resources.real_time_stats;
-            this.pictureBox12.Location = new System.Drawing.Point(205, 88);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox12.TabIndex = 11;
-            this.pictureBox12.TabStop = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -827,6 +828,30 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Version:";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.LightGray;
+            this.label1.Location = new System.Drawing.Point(20, 402);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 25);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Coming Soon";
+            // 
+            // pictureBox16
+            // 
+            this.pictureBox16.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox16.Image = global::LXLauncher.Properties.Resources.discord;
+            this.pictureBox16.Location = new System.Drawing.Point(201, 652);
+            this.pictureBox16.Name = "pictureBox16";
+            this.pictureBox16.Size = new System.Drawing.Size(48, 63);
+            this.pictureBox16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox16.TabIndex = 11;
+            this.pictureBox16.TabStop = false;
+            this.pictureBox16.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox16_MouseClick);
+            // 
             // LxLauncher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -834,6 +859,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(24)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1232, 720);
+            this.Controls.Add(this.pictureBox16);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lx_launcher_version_label);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.download_progressbar);
@@ -868,6 +895,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
             this.Website_Panel.ResumeLayout(false);
             this.Website_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.Launcher_Panel.ResumeLayout(false);
             this.Launcher_Panel.PerformLayout();
@@ -883,9 +913,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.users_logo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.changelog_panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -953,6 +981,8 @@
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox16;
     }
 }
 

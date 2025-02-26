@@ -100,31 +100,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LXLauncher_Background.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LXLauncher_Background.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\LX.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LX.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LXLauncher_Bakcground.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\users.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icon1.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\users.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\users2.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\rockstar_games.png" />
@@ -137,6 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4929249_20230614010628647-1024.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -707,11 +707,6 @@ namespace LXLauncher
             MessageBox.Show(message, LXLauncher, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void pictureBox17_Click(object sender, EventArgs e)
-        {
-            Process.Start(DiscordUrl);
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             Process.Start(LxWebsiteUrl);
@@ -736,24 +731,9 @@ namespace LXLauncher
             if (!changelog_panel.Visible) { changelog_panel.Visible = true; }
         }
 
-        private void lua_button_MouseClick(object sender, MouseEventArgs e)
+        private void pictureBox16_MouseClick(object sender, MouseEventArgs e)
         {
-            t = 0f; // Reset interpolation factor
-            targetY = 319;
-            animationTimer.Start(); // Start the animation
-
-            if (home_panel.Visible) { home_panel.Visible = false; }
-            if (changelog_panel.Visible) { changelog_panel.Visible = false; }
-        }
-
-        private void vehicles_button_MouseClick(object sender, MouseEventArgs e)
-        {
-            t = 0f; // Reset interpolation factor
-            targetY = 374;
-            animationTimer.Start(); // Start the animation
-
-            if (home_panel.Visible) { home_panel.Visible = false; }
-            if (changelog_panel.Visible) { changelog_panel.Visible = false; }
+            Process.Start(DiscordUrl);
         }
     }
 }
